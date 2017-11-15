@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <style>
+    #block {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      left: 200px;
+      top: 200px;
+      background: #555;
+    }
+  </style>
+  <div id="block">click me</div>
+  <script>
+    //匀速运动
+    // var deg = 0;
+    // block.addEventListener('click', function() {
+    //     var self = this;
+    //     requestAnimationFrame(function change() {
+    //         self.style.transform = 'rotate(' + (deg++) + 'deg)';
+    //         requestAnimationFrame(change);
+    //     });
+    // });
+
+    /*匀加速*/
+    // block.addEventListener('click', function() {
+    //     var self = this,
+    //         startTime = Date.now(),
+    //         distance = 200,
+    //         T = 2000;
+    //     requestAnimationFrame(function step() {
+    //         var p = Math.min(1.0, (Date.now() - startTime) / T);
+    //         self.style.transform = 'translateX(' + (distance * p * p) + 'px)';
+    //         if (p < 1.0) requestAnimationFrame(step);
+    //     });
+    // });
+
+    /*封装*/
+    function Animator(duration, process, easing) {
+      this.duration = duration;
+      this.process = process;
+      this.easing = easing || function (p) {
+        return p
+      };
+    }
+    Animator.prototype = {
+      start: function (finished) {
+        var startTime = Data.now();
+        var duration = this.duration,
+          self = this;
+        requestAnimationFrame(function step() {
+          var p = (Date.now() - startTime) / duration;
+          var next = true;
+          if (p < 1.0) {
+            self.process(self.easing(p), p);
+          } else {
+            if (typeof finished === 'function') {
+              next = finished() === false;
+            } else {
+              next = finished === false;
+            }
+            if (!next) {
+              self.process(self.easing(1.0), 1.0);
+            } else {
+              startTime += duration;
+              self.process(self.easing(p), p);
+            }
+          }
+
+          if (next) requestAnimationFrame(step);
+
+        });
+      }
+    };
+  </script>
+</body>
+
+</html>

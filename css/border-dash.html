@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>border dashed</title>
+</head>
+
+<body>
+  <style>
+    .border-dashed {
+      width: 260px;
+      height: 180px;
+      border-width: 6px;
+      border-style: solid;
+      -webkit-border-image: url(http://www.zhangxinxu.com/study/image/dashed_red2.png) 6 repeat;
+      border-image: url(http://www.zhangxinxu.com/study/image/dashed_red2.png) 6 repeat;
+      background: yellow;
+    }
+    .svg-dashed{
+      margin-top: 20px;
+      width: 210px;
+      height: 160px;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="150"><path stroke="red" fill="none" stroke-width="1" stroke-dasharray="5" d="M0 0 L200 0 L200 150 L0 150 L0 0"></path></svg>');
+      background-repeat: no-repeat;
+    }
+  </style>
+  <div class="border-dashed"></div>
+  <div class="svg-dashed"></div>
+
+</body>
+</html>
